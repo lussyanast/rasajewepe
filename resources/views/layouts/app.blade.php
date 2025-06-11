@@ -58,6 +58,21 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="/">RasaJeWePe</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/catalog">Katalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/order">Pesan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/gallery">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/testimonials">Testimoni</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Hubungi Kami</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -67,7 +82,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-dark text-light py-4">
+    <footer class="footer bg-dark text-light py-4 mt-5">
         <div class="container">
             <div class="row text-center text-md-start">
                 <div class="col-md-4 mb-3">
@@ -98,6 +113,9 @@
             </div>
         </div>
     </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
