@@ -47,6 +47,9 @@ Route::prefix('admin')->group(function () {
 
     // Report
     Route::get('/reports', [ReportController::class, 'index']);
+    Route::get('/reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.export.excel');
+    Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export.pdf');
+
 
     // Gallery Managements
     Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries.index');
