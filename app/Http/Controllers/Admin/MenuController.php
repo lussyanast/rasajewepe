@@ -4,62 +4,58 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Menu;
+use App\Models\CategoryMenu;
 
 class MenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $menus = Menu::with('category')->get();
+        return view('admin.menus.index', compact('menus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $categories = CategoryMenu::all();
+        return view('admin.menus.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'catering_name' => 'required|string',
+            'category_id' => 'required|exists:category_menu,category_id',
+            'description' => 'nullable|string',
+            'image' => 'nullable|string',
+            'portion' => 'required|integer',
+            'price' => 'required|integer',
+            'discount' => 'nullable|integer',
+            'final_price' => 'required|integer',
+            'is_active' => 'required|in:Y,N',
+        ]);
+
+        Menu::create($request->all());
+        return redirect()->route('menus.index')->with('success', 'Menu berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $menu = Menu::findOrFail($id);
+        $categories = Menu::all();
+        return view('admin.menus.edit', compact('menu', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $menu = Menu::findOrFail($id);
+        $menu->update($request->all());
+        return redirect()->route('menus.index')->with('success', 'Menu berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Menu::destroy($id);
+        return redirect()->route('menus.index')->with('success', 'Menu berhasil dihapus.');
     }
 }
