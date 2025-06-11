@@ -35,6 +35,10 @@
             font-size: 1.8rem;
         }
 
+        footer {
+            margin-top: auto;
+        }
+
         footer h5,
         footer h6 {
             font-weight: 700;
@@ -47,7 +51,6 @@
 </head>
 
 <body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
@@ -55,13 +58,13 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container">
+    <!-- Main Content Wrapper -->
+    <div class="container content-wrapper">
         @yield('content')
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-dark text-light mt-5 py-4">
+    <footer class="footer bg-dark text-light py-4">
         <div class="container">
             <div class="row text-center text-md-start">
                 <div class="col-md-4 mb-3">
@@ -92,7 +95,6 @@
             </div>
         </div>
     </footer>
-
 </body>
 
 </html>
