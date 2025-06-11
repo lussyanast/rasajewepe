@@ -1,21 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="mb-4">Daftar Menu Catering</h2>
+    <div class="text-center my-5">
+        <h1 class="mb-3" style="font-family: 'Italiana', serif;">Katalog Menu Catering</h1>
+        <p class="lead">Pilih menu terbaik untuk acara Anda</p>
+    </div>
 
     <div class="row">
-        @forelse($menus as $menu)
-            <div class="col-md-4">
-                <div class="card mb-3">
+        @forelse ($menus as $menu)
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    @if ($menu->image)
+                        <img src="{{ asset('storage/' . $menu->image) }}" class="card-img-top" alt="{{ $menu->name }}">
+                    @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $menu->name }}</h5>
                         <p class="card-text">{{ $menu->description }}</p>
-                        <p class="card-text"><strong>Rp{{ number_format($menu->price) }}</strong></p>
+                        <p class="fw-bold">Rp{{ number_format($menu->price, 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>
         @empty
-            <p>Tidak ada menu tersedia.</p>
+            <p class="text-center">Belum ada menu tersedia.</p>
         @endforelse
     </div>
 @endsection
