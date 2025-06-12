@@ -5,7 +5,7 @@
         <div class="card-body">
             <h4 class="mb-4">Tambah Menu</h4>
 
-            <form action="{{ route('menus.store') }}" method="POST">
+            <form action="{{ route('menus.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -21,6 +21,11 @@
                             <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
                         @endforeach
                     </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload Gambar Menu</label>
+                    <input type="file" name="image" class="form-control" accept="image/*">
                 </div>
 
                 <div class="row">

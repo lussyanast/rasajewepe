@@ -5,7 +5,7 @@
         <div class="card-body">
             <h4 class="mb-4">Edit Menu</h4>
 
-            <form action="{{ route('menus.update', $menu->menu_id) }}" method="POST">
+            <form action="{{ route('menus.update', $menu->menu_id) }}" method="POST" enctype="multipart/form-data">
                 @csrf @method('PUT')
 
                 <div class="mb-3">
@@ -23,6 +23,14 @@
                             </option>
                         @endforeach
                     </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload Gambar Baru (Opsional)</label>
+                    <input type="file" name="image" class="form-control" accept="image/*">
+                    @if ($menu->image)
+                        <img src="{{ asset('storage/' . $menu->image) }}" alt="menu" class="img-thumbnail mt-2" width="120">
+                    @endif
                 </div>
 
                 <div class="row">
