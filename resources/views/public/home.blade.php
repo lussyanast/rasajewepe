@@ -1,34 +1,76 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-center my-5">
-        <h1 class="mb-3" style="font-family: 'Italiana', serif;">Selamat Datang di RasaJeWePe</h1>
-        <p class="lead">Layanan catering pilihan Anda.</p>
-        <a href="/catalog" class="btn btn-outline-dark mt-3">Lihat Menu Catering</a>
+    {{-- HERO FULL WIDTH --}}
+    <div class="w-100 position-relative text-white mb-5"
+        style="height: 100vh; background-image: url('{{ asset('content.jpg') }}'); background-size: cover; background-position: center;">
+        <div class="position-absolute top-50 start-50 translate-middle text-center px-3" style="z-index: 1;">
+            <h1 class="mb-3 display-4" style="font-family: 'Italiana', serif; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">
+                Selamat Datang di RasaJeWePe</h1>
+            <p class="lead mb-4" style="text-shadow: 1px 1px 5px rgba(0,0,0,0.4);">Layanan catering premium untuk acara
+                spesial Anda</p>
+            <a href="/catalog" class="btn btn-light btn-lg shadow-sm">Lihat Menu Catering</a>
+        </div>
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark" style="opacity: 0.4; z-index: 0;"></div>
     </div>
 
-    <div class="row text-center my-5">
-        <div class="col-md-4 mb-4">
-            <h4 class="fw-bold">Bahan Berkualitas</h4>
-            <p>Kami hanya menggunakan bahan segar, bersih, dan halal dalam setiap masakan kami.</p>
-        </div>
-        <div class="col-md-4 mb-4">
-            <h4 class="fw-bold">Pengiriman Tepat Waktu</h4>
-            <p>Jaminan tepat waktu dalam setiap pengantaran ke lokasi Anda.</p>
-        </div>
-        <div class="col-md-4 mb-4">
-            <h4 class="fw-bold">Varian Menu</h4>
-            <p>Pilihan menu lengkap mulai dari prasmanan hingga kotakan, sesuai selera dan kebutuhan acara Anda.</p>
+    {{-- SECTION KEUNGGULAN --}}
+    <div class="container">
+        <div class="row text-center my-5">
+            <div class="col-md-4 mb-4">
+                <div class="p-4 h-100 shadow-sm border rounded">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Bahan" width="64" class="mb-3">
+                    <h5 class="fw-bold">Bahan Berkualitas</h5>
+                    <p class="mb-0">Menggunakan bahan segar dan halal untuk setiap hidangan yang disajikan.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 h-100 shadow-sm border rounded">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2920/2920244.png" alt="Waktu" width="64" class="mb-3">
+                    <h5 class="fw-bold">Pengiriman Tepat Waktu</h5>
+                    <p class="mb-0">Kami pastikan pesanan Anda tiba sesuai jadwal dan kondisi terbaik.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 h-100 shadow-sm border rounded">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1905/1905256.png" alt="Menu" width="64" class="mb-3">
+                    <h5 class="fw-bold">Pilihan Menu Lengkap</h5>
+                    <p class="mb-0">Tersedia berbagai paket prasmanan, nasi kotak, dan snack box sesuai kebutuhan.</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <hr class="my-5">
+    {{-- SECTION TESTIMONI --}}
+    <div class="bg-light py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Apa Kata Pelanggan?</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">"Makanannya enak, tampilannya cantik, dan pengirimannya tepat waktu. Sangat
+                                recommended untuk acara keluarga dan kantor!"</p>
+                            <footer class="blockquote-footer mt-3">Fitri, Jakarta Selatan</footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="text-center">
-        <h2 class="mb-4">Apa Kata Pelanggan?</h2>
-        <blockquote class="blockquote">
-            <p class="mb-0">"Makanannya enak, tampilannya cantik, dan pengirimannya tepat waktu. Sangat recommended!"</p>
-            <footer class="blockquote-footer mt-2">Fitri, Jakarta Selatan</footer>
-        </blockquote>
+    {{-- CTA SECTION --}}
+    <div class="py-5 mb-0" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: #fff;">
+        <div class="container d-flex flex-column align-items-center text-center">
+            <h2 class="mb-3 display-5" style="font-family: 'Italiana', serif;">Siap Memesan untuk Acara Anda?</h2>
+            <p class="lead mb-4 px-2" style="max-width: 700px;">
+                Jadikan momen istimewa Anda lebih berkesan bersama RasaJeWePe — layanan catering terpercaya dengan rasa dan
+                pelayanan terbaik.
+            </p>
+            <a href="/order" class="btn btn-outline-light btn-lg px-5 py-2 rounded-pill shadow-sm"
+                style="transition: 0.3s ease;">
+                Pesan Sekarang
+            </a>
+        </div>
     </div>
 @endsection
