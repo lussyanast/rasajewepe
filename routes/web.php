@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\OrderController;
@@ -27,31 +28,42 @@ Route::post('/contact', [PublicController::class, 'submitContact']);
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN ROUTES
+| ADMIN AUTH ROUTES
 |--------------------------------------------------------------------------
+| Untuk login, logout, dan form login admin
+*/
+
+Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin/login', [AuthController::class, 'login']);
+Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN PANEL ROUTES (Terproteksi middleware admin.auth)
+|--------------------------------------------------------------------------
+| Semua route ini hanya bisa diakses jika sudah login sebagai admin
 */
 
 Route::prefix('admin')->group(function () {
-    // Dashboard
+    // Dashboard Admin
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
-    // Menu Management
+    // Manajemen Menu
     Route::resource('/menus', MenuController::class);
 
-    // Order Management
+    // Manajemen Pesanan
     Route::resource('/orders', OrderController::class);
 
-    // Testimonial Management
+    // Manajemen Testimoni
     Route::resource('/testimonials', TestimonialController::class);
     Route::post('/testimonials/{id}/approve', [TestimonialController::class, 'approve'])->name('testimonials.approve');
 
-    // Report
+    // Laporan
     Route::get('/reports', [ReportController::class, 'index']);
     Route::get('/reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.export.excel');
     Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export.pdf');
 
-
-    // Gallery Managements
+    // Manajemen Galeri
     Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries.index');
     Route::post('/galleries/{id}/approve', [GalleryController::class, 'approve'])->name('galleries.approve');
     Route::delete('/galleries/{id}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
