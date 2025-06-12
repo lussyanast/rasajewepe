@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +19,21 @@ use App\Http\Controllers\Admin\GalleryController;
 |--------------------------------------------------------------------------
 */
 
+// Login user
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
+// Registrasi user
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
 Route::get('/', [PublicController::class, 'home']);
 Route::get('/catalog', [PublicController::class, 'catalog']);
 Route::get('/order', [PublicController::class, 'orderForm']);
 Route::post('/order', [PublicController::class, 'submitOrder']);
 Route::get('/gallery', [PublicController::class, 'gallery']);
 Route::get('/testimonials', [PublicController::class, 'testimonials']);
-Route::post('/testimonials', [PublicController::class, 'submitTestimonial']);
+Route::middleware(['auth'])->post('/testimonials', [PublicController::class, 'submitTestimonial']);
 Route::get('/contact', [PublicController::class, 'contactForm']);
 Route::post('/contact', [PublicController::class, 'submitContact']);
 

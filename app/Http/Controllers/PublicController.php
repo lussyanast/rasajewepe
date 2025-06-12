@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\Gallery;
 use App\Models\Testimonial;
 use App\Models\Contact;
+use Illuminate\Http\Request;
+
 
 class PublicController extends Controller
 {
