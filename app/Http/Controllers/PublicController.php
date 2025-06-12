@@ -81,8 +81,14 @@ class PublicController extends Controller
             'message' => 'required|string|max:1000',
         ]);
 
-        Contact::create($request->all());
+        $name = $request->name;
+        $email = $request->email;
+        $message = $request->message;
 
-        return redirect('/contact')->with('success', 'Pesan Anda berhasil dikirim!');
+        // Format pesan untuk WhatsApp (dengan encoding dan line break)
+        $waText = "Halo RasaJeWePe! Saya *$name* (email: $email) ingin menghubungi Anda:%0A%0A$message";
+        $waLink = "https://wa.me/6285772492505?text=" . urlencode($waText);
+
+        return redirect()->away($waLink);
     }
 }

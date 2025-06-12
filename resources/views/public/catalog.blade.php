@@ -13,10 +13,12 @@
                     @if ($menu->image)
                         <img src="{{ asset('storage/' . $menu->image) }}" class="card-img-top" alt="{{ $menu->name }}">
                     @endif
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $menu->name }}</h5>
                         <p class="card-text">{{ $menu->description }}</p>
                         <p class="fw-bold">Rp{{ number_format($menu->price, 0, ',', '.') }}</p>
+
+                        <a href="{{ url('/order?menu_id=' . $menu->id) }}" class="btn btn-dark mt-auto w-100">Pesan Sekarang</a>
                     </div>
                 </div>
             </div>

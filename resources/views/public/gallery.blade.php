@@ -1,20 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="mb-4">Galeri Menu</h2>
+    <div class="container py-5">
+        <h2 class="text-center mb-4" style="font-family: 'Italiana', serif;">Galeri Dokumentasi</h2>
 
-    <div class="row">
-        @forelse($galleries as $item)
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <img src="{{ asset('storage/' . $item->image_path) }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">{{ $item->caption }}</p>
+        @if($galleries->isEmpty())
+            <p class="text-center">Belum ada dokumentasi yang tersedia.</p>
+        @else
+            <div class="row g-4">
+                @foreach ($galleries as $item)
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 h-100">
+                            @if ($item->image)
+                                <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top" alt="Gallery Image">
+                            @endif
+                            @if ($item->caption)
+                                <div class="card-body">
+                                    <p class="card-text">{{ $item->caption }}</p>
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-        @empty
-            <p>Belum ada gambar galeri.</p>
-        @endforelse
+        @endif
     </div>
 @endsection
