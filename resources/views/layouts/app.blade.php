@@ -16,6 +16,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Open+Sans:wght@400;600;700&display=swap"
         rel="stylesheet">
 
+    {{-- Icon Photo --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     <!-- Global Styling -->
     <style>
         body {
@@ -71,6 +74,34 @@
                     <li class="nav-item"><a class="nav-link" href="/gallery">Galeri</a></li>
                     <li class="nav-item"><a class="nav-link" href="/testimonials">Testimoni</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">Hubungi Kami</a></li>
+
+                    @auth
+                        <li class="nav-item dropdown ms-3">
+                            <a class="nav-link dropdown-toggle fw-semibold text-warning" href="#" id="userDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle me-1"></i> {{ Auth::user()->full_name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                        <li class="nav-item ms-3">
+                            <a class="nav-link text-light" href="{{ route('login') }}">
+                                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="{{ route('register') }}">
+                                <i class="bi bi-person-plus me-1"></i> Daftar
+                            </a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>

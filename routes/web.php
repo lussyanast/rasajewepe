@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 // Login user
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // Registrasi user
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
