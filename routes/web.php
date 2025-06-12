@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\GalleryController;
@@ -30,8 +31,8 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/', [PublicController::class, 'home']);
 Route::get('/catalog', [PublicController::class, 'catalog']);
-Route::get('/order', [PublicController::class, 'orderForm']);
-Route::post('/order', [PublicController::class, 'submitOrder']);
+Route::middleware(['auth'])->post('/order', [PublicController::class, 'submitOrder']);
+Route::middleware(['auth'])->get('/order', [PublicController::class, 'orderForm']);
 Route::get('/gallery', [PublicController::class, 'gallery']);
 Route::get('/testimonials', [PublicController::class, 'testimonials']);
 Route::middleware(['auth'])->post('/testimonials', [PublicController::class, 'submitTestimonial']);
@@ -68,10 +69,17 @@ Route::prefix('admin')->group(function () {
 
     // Manajemen Pesanan
     Route::resource('/orders', OrderController::class);
+    Route::put('/orders/{order}/approve', [OrderController::class, 'approve'])->name('orders.approve');
+    Route::put('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+    Route::put('/orders/{id}/complete', [OrderController::class, 'markAsCompleted'])->name('orders.markAsCompleted');
 
     // Manajemen Testimoni
     Route::resource('/testimonials', TestimonialController::class);
     Route::post('/testimonials/{id}/approve', [TestimonialController::class, 'approve'])->name('testimonials.approve');
+
+    // Manajemen Metode Pembayaran
+    Route::resource('/payment-methods', PaymentMethodController::class);
+    Route::put('/payment-methods/{paymentMethod}/toggle', [PaymentMethodController::class, 'toggleStatus'])->name('payment-methods.toggle');
 
     // Laporan
     Route::get('/reports', [ReportController::class, 'index']);

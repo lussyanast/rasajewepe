@@ -9,7 +9,12 @@ class Testimonial extends Model
     protected $table = 'testimonials';
     protected $primaryKey = 'testimony_id';
 
-    protected $fillable = ['user_id', 'name', 'message', 'approved'];
+    protected $fillable = ['user_id', 'message', 'approved'];
     public $timestamps = true;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
 

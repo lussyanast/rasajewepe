@@ -18,7 +18,9 @@
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
                                 <p>"{{ $testi->message }}"</p>
-                                <footer class="blockquote-footer mt-2">{{ $testi->name }}</footer>
+                                <footer class="blockquote-footer mt-2">
+                                    {{ $testi->user->full_name ?? 'Pengguna' }}
+                                </footer>
                             </blockquote>
                         </div>
                     </div>
@@ -28,22 +30,24 @@
             @endforelse
         </div>
 
-        {{-- FORM KIRIM TESTIMONI --}}
-        <div class="col-md-8 mx-auto">
-            <h4 class="mb-3 text-center">Kirim Testimoni Anda</h4>
-            <form method="POST" action="/testimonials">
-                @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama Anda</label>
-                    <input type="text" name="name" id="name" required class="form-control" value="{{ old('name') }}">
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Pesan / Ulasan</label>
-                    <textarea name="message" id="message" rows="4" required
-                        class="form-control">{{ old('message') }}</textarea>
-                </div>
-                <button type="submit" class="btn btn-dark">Kirim Testimoni</button>
-            </form>
-        </div>
+        {{-- FORM TESTIMONI - HANYA JIKA LOGIN --}}
+        @auth
+            <div class="col-md-8 mx-auto">
+                <h4 class="mb-3 text-center">Kirim Testimoni Anda</h4>
+                <form method="POST" action="/testimonials">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Pesan / Ulasan</label>
+                        <textarea name="message" id="message" rows="4" required
+                            class="form-control">{{ old('message') }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Kirim Testimoni</button>
+                </form>
+            </div>
+        @else
+            <div class="text-center mt-4">
+                <p class="text-muted">Silakan <a href="{{ route('login') }}">login</a> untuk mengirim testimoni.</p>
+            </div>
+        @endauth
     </div>
 @endsection

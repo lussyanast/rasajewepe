@@ -45,16 +45,22 @@
     <div class="bg-light py-5">
         <div class="container text-center">
             <h2 class="mb-4">Apa Kata Pelanggan?</h2>
+
             <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            <p class="card-text">"Makanannya enak, tampilannya cantik, dan pengirimannya tepat waktu. Sangat
-                                recommended untuk acara keluarga dan kantor!"</p>
-                            <footer class="blockquote-footer mt-3">Fitri, Jakarta Selatan</footer>
+                @forelse ($testimonials as $testi)
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <p class="card-text">"{{ $testi->message }}"</p>
+                                <footer class="blockquote-footer mt-3 text-end">
+                                    {{ $testi->user->full_name ?? 'Pengguna' }}
+                                </footer>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @empty
+                    <p class="text-muted">Belum ada testimoni pelanggan yang ditampilkan.</p>
+                @endforelse
             </div>
         </div>
     </div>

@@ -9,6 +9,19 @@ class Order extends Model
     protected $primaryKey = 'order_id';
     protected $table = 'orders';
 
+    protected $fillable = [
+        'user_id',
+        'event_date',
+        'address',
+        'total_price',
+        'order_status_id',
+        'payment_status_id',
+        'payment_method',
+        'notes',
+        'confirmed_at',
+        'canceled_reason',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

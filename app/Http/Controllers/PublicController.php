@@ -5,17 +5,23 @@ use App\Models\Menu;
 use App\Models\Order;
 use App\Models\Gallery;
 use App\Models\Testimonial;
-use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Models\OrderItem;
+use Illuminate\Support\Facades\Auth;
 
 
 class PublicController extends Controller
 {
     public function home()
     {
-        return view('public.home');
-    }
+        $testimonials = Testimonial::with('user')
+            ->where('approved', true)
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
 
+        return view('public.home', compact('testimonials'));
+    }
     public function catalog()
     {
         $menus = Menu::all();
@@ -30,16 +36,35 @@ class PublicController extends Controller
     public function submitOrder(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:100',
-            'menu_id' => 'required|exists:menus,id',
+            'event_date' => 'required|date',
+            'menu_id' => 'required|exists:catering_menu,menu_id',
             'quantity' => 'required|integer|min:1',
             'address' => 'required|string',
             'notes' => 'nullable|string',
         ]);
 
-        Order::create($request->all());
+        $menu = Menu::findOrFail($request->menu_id);
+        $total = $menu->price * $request->quantity;
 
-        return redirect('/')->with('success', 'Pesanan berhasil dikirim!');
+        $order = Order::create([
+            'user_id' => Auth::user()->user_id,
+            'event_date' => $request->event_date,
+            'address' => $request->address,
+            'total_price' => $total,
+            'order_status_id' => 1,
+            'payment_status_id' => 1,
+            'payment_method_id' => null,
+            'notes' => $request->notes,
+        ]);
+
+        OrderItem::create([
+            'order_id' => $order->order_id,
+            'menu_id' => $menu->menu_id,
+            'quantity' => $request->quantity,
+            'subtotal' => $total,
+        ]);
+
+        return redirect('/')->with('success', 'Pemesanan berhasil dikirim!');
     }
 
     public function gallery()
@@ -56,13 +81,16 @@ class PublicController extends Controller
 
     public function submitTestimonial(Request $request)
     {
+        if (!auth()->check()) {
+            return redirect('/login')->with('error', 'Silakan login terlebih dahulu untuk mengirim testimoni.');
+        }
+
         $request->validate([
-            'name' => 'required|string|max:100',
             'message' => 'required|string|max:1000',
         ]);
 
         Testimonial::create([
-            'name' => $request->name,
+            'user_id' => auth()->user()->user_id,
             'message' => $request->message,
             'approved' => false,
         ]);

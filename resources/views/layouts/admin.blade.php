@@ -67,6 +67,10 @@
                     class="nav-link px-3 py-2 {{ request()->is('admin/categories*') ? 'active' : '' }}">
                     Kelola Kategori
                 </a>
+                <a href="{{ url('/admin/payment-methods') }}"
+                    class="nav-link px-3 py-2 {{ request()->is('admin/payment-methods*') ? 'active' : '' }}">
+                    Kelola Metode Pembayaran
+                </a>
                 <a href="{{ url('/admin/orders') }}"
                     class="nav-link px-3 py-2 {{ request()->is('admin/orders*') ? 'active' : '' }}">
                     Kelola Pesanan
