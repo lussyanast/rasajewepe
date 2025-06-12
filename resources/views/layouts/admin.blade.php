@@ -56,14 +56,33 @@
             {{-- Navigasi --}}
             <nav class="flex-fill">
                 <a href="{{ url('/admin/dashboard') }}"
-                    class="nav-link px-3 py-2 {{ request()->is('admin/dashboard') ? 'active' : '' }}">Dashboard</a>
+                    class="nav-link px-3 py-2 {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+                    Dashboard
+                </a>
                 <a href="{{ url('/admin/menus') }}"
-                    class="nav-link px-3 py-2 {{ request()->is('admin/menus*') ? 'active' : '' }}">Kelola Menu</a>
+                    class="nav-link px-3 py-2 {{ request()->is('admin/menus*') ? 'active' : '' }}">
+                    Kelola Menu
+                </a>
+                <a href="{{ url('/admin/categories') }}"
+                    class="nav-link px-3 py-2 {{ request()->is('admin/categories*') ? 'active' : '' }}">
+                    Kelola Kategori
+                </a>
                 <a href="{{ url('/admin/orders') }}"
-                    class="nav-link px-3 py-2 {{ request()->is('admin/orders*') ? 'active' : '' }}">Kelola Pesanan</a>
+                    class="nav-link px-3 py-2 {{ request()->is('admin/orders*') ? 'active' : '' }}">
+                    Kelola Pesanan
+                </a>
                 <a href="{{ url('/admin/testimonials') }}"
-                    class="nav-link px-3 py-2 {{ request()->is('admin/testimonials*') ? 'active' : '' }}">Kelola
-                    Testimoni</a>
+                    class="nav-link px-3 py-2 {{ request()->is('admin/testimonials*') ? 'active' : '' }}">
+                    Kelola Testimoni
+                </a>
+                <a href="{{ url('/admin/galleries') }}"
+                    class="nav-link px-3 py-2 {{ request()->is('admin/galleries*') ? 'active' : '' }}">
+                    Kelola Galeri
+                </a>
+                <a href="{{ url('/admin/reports') }}"
+                    class="nav-link px-3 py-2 {{ request()->is('admin/reports*') ? 'active' : '' }}">
+                    Laporan
+                </a>
             </nav>
 
             {{-- Logout --}}

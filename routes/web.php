@@ -5,6 +5,7 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -50,6 +51,9 @@ Route::prefix('admin')->group(function () {
 
     // Manajemen Menu
     Route::resource('/menus', MenuController::class);
+
+    // Manajemen Category
+    Route::resource('/categories', CategoryController::class);
 
     // Manajemen Pesanan
     Route::resource('/orders', OrderController::class);

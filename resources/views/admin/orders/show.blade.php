@@ -1,18 +1,28 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-    <h2>Detail Pesanan</h2>
+    <h4 class="mb-4">Detail Pesanan</h4>
 
-    <p><strong>Nama:</strong> {{ $order->user->full_name ?? '-' }}</p>
-    <p><strong>Tanggal Acara:</strong> {{ $order->event_date }}</p>
-    <p><strong>Status:</strong> {{ $order->status->status_desc ?? '-' }}</p>
-    <p><strong>Pembayaran:</strong> {{ $order->paymentStatus->payment_desc ?? '-' }}</p>
+    <div class="mb-4">
+        <p><strong>Nama:</strong> {{ $order->user->full_name ?? '-' }}</p>
+        <p><strong>Tanggal Acara:</strong> {{ $order->event_date }}</p>
+        <p><strong>Status:</strong>
+            <span class="badge bg-{{ $order->status->status_desc == 'Selesai' ? 'success' : 'warning' }}">
+                {{ $order->status->status_desc ?? '-' }}
+            </span>
+        </p>
+        <p><strong>Pembayaran:</strong>
+            <span class="badge bg-{{ $order->paymentStatus->payment_desc == 'Lunas' ? 'success' : 'secondary' }}">
+                {{ $order->paymentStatus->payment_desc ?? '-' }}
+            </span>
+        </p>
+    </div>
 
     <hr>
-    <h4>Item Pesanan</h4>
+    <h5 class="mb-3">Item Pesanan</h5>
 
-    <table class="table">
-        <thead>
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
             <tr>
                 <th>Menu</th>
                 <th>Jumlah</th>

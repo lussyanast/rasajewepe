@@ -1,44 +1,53 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-    <h2>Kelola Testimoni</h2>
+    <h4 class="mb-4">Kelola Testimoni</h4>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Pesan</th>
-                <th>Status</th>
-                <th>Dibuat</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($testimonials as $item)
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-dark">
                 <tr>
-                    <td>{{ $item->name ?? '-' }}</td>
-                    <td>{{ $item->message }}</td>
-                    <td>{{ $item->approved ? 'Disetujui' : 'Menunggu' }}</td>
-                    <td>{{ $item->created_at }}</td>
-                    <td>
-                        @if(!$item->approved)
-                            <form action="{{ route('testimonials.approve', $item->testimony_id) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                <button class="btn btn-sm btn-success">Setujui</button>
-                            </form>
-                        @endif
-
-                        <form action="{{ route('testimonials.destroy', $item->testimony_id) }}" method="POST" style="display:inline-block;">
-                            @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Hapus testimoni ini?')">Hapus</button>
-                        </form>
-                    </td>
+                    <th>Nama</th>
+                    <th>Pesan</th>
+                    <th>Status</th>
+                    <th>Dibuat</th>
+                    <th style="width: 150px;">Aksi</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($testimonials as $item)
+                    <tr>
+                        <td>{{ $item->name ?? '-' }}</td>
+                        <td>{{ Str::limit($item->message, 80) }}</td>
+                        <td>
+                            <span class="badge bg-{{ $item->approved ? 'success' : 'secondary' }}">
+                                {{ $item->approved ? 'Disetujui' : 'Menunggu' }}
+                            </span>
+                        </td>
+                        <td>{{ $item->created_at->format('d M Y, H:i') }}</td>
+                        <td>
+                            <div class="d-flex gap-1">
+                                @if(!$item->approved)
+                                    <form action="{{ route('testimonials.approve', $item->testimony_id) }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-sm btn-success">Setujui</button>
+                                    </form>
+                                @endif
+
+                                <form action="{{ route('testimonials.destroy', $item->testimony_id) }}" method="POST"
+                                    onsubmit="return confirm('Hapus testimoni ini?')">
+                                    @csrf @method('DELETE')
+                                    <button class="btn btn-sm btn-danger">Hapus</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 @endsection
