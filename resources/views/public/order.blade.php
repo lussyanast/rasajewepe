@@ -19,10 +19,10 @@
             <div class="mb-3">
                 <label for="menu_id" class="form-label">Pilih Menu</label>
                 <select class="form-select" name="menu_id" id="menu_id" required>
-                    <option disabled {{ request('menu_id') ? '' : 'selected' }}>-- Pilih Menu --</option>
+                    <option disabled {{ !request('menu_id') ? 'selected' : '' }}>-- Pilih Menu --</option>
                     @foreach(\App\Models\Menu::all() as $menu)
-                        <option value="{{ $menu->id }}" {{ request('menu_id') == $menu->id ? 'selected' : '' }}>
-                            {{ $menu->name }} - Rp{{ number_format($menu->price) }}
+                        <option value="{{ $menu->menu_id }}" {{ request('menu_id') == $menu->menu_id ? 'selected' : '' }}>
+                            {{ $menu->catering_name }} - Rp{{ number_format($menu->price) }}
                         </option>
                     @endforeach
                 </select>
