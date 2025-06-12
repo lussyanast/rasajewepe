@@ -7,7 +7,8 @@
         <p><strong>Nama:</strong> {{ $order->user->full_name ?? '-' }}</p>
         <p><strong>Tanggal Acara:</strong> {{ $order->event_date }}</p>
         <p><strong>Status:</strong>
-            <span class="badge bg-{{ $order->status->status_desc == 'Selesai' ? 'success' : 'warning' }}">
+            <span
+                class="badge bg-{{ $order->status->status_desc == 'Selesai' ? 'success' : ($order->status->status_desc == 'Dibatalkan' ? 'danger' : 'warning') }}">
                 {{ $order->status->status_desc ?? '-' }}
             </span>
         </p>
@@ -16,6 +17,8 @@
                 {{ $order->paymentStatus->payment_desc ?? '-' }}
             </span>
         </p>
+        <p><strong>Alamat Pengiriman:</strong> {{ $order->address ?? '-' }}</p>
+        <p><strong>Catatan Tambahan:</strong> {{ $order->notes ?? '-' }}</p>
     </div>
 
     <hr>
@@ -39,4 +42,8 @@
             @endforeach
         </tbody>
     </table>
+
+    <div class="text-end mt-3">
+        <h5>Total Harga: <strong>Rp{{ number_format($order->total_price) }}</strong></h5>
+    </div>
 @endsection

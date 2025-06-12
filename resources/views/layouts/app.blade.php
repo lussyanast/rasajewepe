@@ -1,3 +1,15 @@
+@php
+use App\Models\Order;
+
+$userOrders = Auth::check()
+    ? Order::where('user_id', Auth::id())
+        ->with('status')
+        ->latest()
+        ->take(5)
+        ->get()
+    : collect();
+@endphp
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -65,7 +77,7 @@
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+    
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Beranda</a></li>
@@ -74,7 +86,7 @@
                     <li class="nav-item"><a class="nav-link" href="/gallery">Galeri</a></li>
                     <li class="nav-item"><a class="nav-link" href="/testimonials">Testimoni</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">Hubungi Kami</a></li>
-
+    
                     @auth
                         <li class="nav-item dropdown ms-3">
                             <a class="nav-link dropdown-toggle fw-semibold text-warning" href="#" id="userDropdown"
